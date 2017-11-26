@@ -13,10 +13,6 @@ class Danbooru(Booru):
 		self.login = login
 		self.api_key = api_key
 	
-	def login(self, login, api_key):
-		self.login = login
-		self.api_key = api_key
-	
 	def _danbooru_params(self, tags, limit, page):
 		params = {
 			"page": str(page+1),
