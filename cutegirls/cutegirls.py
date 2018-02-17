@@ -1,12 +1,14 @@
 from .gelbooru import Gelbooru
 from .danbooru import Danbooru
 from .yandere import Yandere
+from .rule34 import Rule34
 
 _boorus = {
 	"gelbooru": Gelbooru,
 	"danbooru": Danbooru,
 	"yande.re": Yandere,
-	"yandere": Yandere
+	"yandere": Yandere,
+	"rule34": Rule34
 }
 
 def CuteGirls(name="gelbooru"):
