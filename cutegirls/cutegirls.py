@@ -1,6 +1,7 @@
 from .gelbooru import Gelbooru
 from .danbooru import Danbooru
 from .yandere import Yandere
+from .konachan import Konachan
 from .rule34 import Rule34
 
 _boorus = {
@@ -8,6 +9,7 @@ _boorus = {
 	"danbooru": Danbooru,
 	"yande.re": Yandere,
 	"yandere": Yandere,
+	"konachan": Konachan,
 	"rule34": Rule34
 }
 

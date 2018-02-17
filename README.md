@@ -6,6 +6,8 @@ Grab posts from some *booru sites. Written in Python 3.x.
 * [Gelbooru](https://gelbooru.com)
 * [Danbooru](http://danbooru.donmai.us)
 * [Yande.re](https://yande.re)
+* [Konachan](http://konachan.com)
+* [Rule34](https://rule34.xxx)
 
 ## Example
 ```python
