@@ -28,7 +28,7 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.preview_ext, "jpg")
 		self.assertTrue(type(post.tags) is list)
 		self.assertTrue(type(post.date) is datetime)
-		#self.assertEqual(str(post.date), "date")
+		self.assertEqual(str(post.date), "2014-06-04 00:05:04")
 		self.assertEqual(post.width, 1252)
 		self.assertEqual(post.height, 1827)
 		self.assertTrue(type(post.score) is int)
@@ -54,7 +54,7 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.preview_ext, "jpg")
 		self.assertTrue(type(post.tags) is list)
 		self.assertTrue(type(post.date) is datetime)
-		#self.assertEqual(str(post.date), "date")
+		self.assertEqual(str(post.date), "2014-05-31 11:06:18")
 		self.assertEqual(post.width, 4091)
 		self.assertEqual(post.height, 5937)
 		self.assertTrue(type(post.score) is int)
@@ -64,7 +64,7 @@ class TestCuteGirls(unittest.TestCase):
 	
 	def test_yandere_post(self):
 		cg = CuteGirls("yande.re")
-		r = cg.search(["kafuu_chino", "loli", "bikini"])
+		r = cg.search(["kafuu_chino", "bikini", "okuda_yousuke"])
 		post = r.posts[-1]
 		
 		self.assertTrue(self.check_url(post.file_url))
@@ -80,7 +80,7 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.preview_ext, "jpg")
 		self.assertTrue(type(post.tags) is list)
 		self.assertTrue(type(post.date) is datetime)
-		#self.assertEqual(str(post.date), "date")
+		self.assertEqual(str(post.date), "2014-02-01 00:56:00")
 		self.assertEqual(post.width, 5946)
 		self.assertEqual(post.height, 4086)
 		self.assertTrue(type(post.score) is int)
@@ -106,7 +106,7 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.preview_ext, "jpg")
 		self.assertTrue(type(post.tags) is list)
 		self.assertTrue(type(post.date) is datetime)
-		#self.assertEqual(str(post.date), "date")
+		self.assertEqual(str(post.date), "2014-06-10 14:12:04")
 		self.assertEqual(post.width, 1200)
 		self.assertEqual(post.height, 900)
 		self.assertTrue(type(post.score) is int)
@@ -132,7 +132,7 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.preview_ext, "jpg")
 		self.assertTrue(type(post.tags) is list)
 		self.assertTrue(type(post.date) is datetime)
-		#self.assertEqual(str(post.date), "date")
+		self.assertEqual(str(post.date), "2017-10-22 04:10:05")
 		self.assertEqual(post.width, 900)
 		self.assertEqual(post.height, 1185)
 		self.assertTrue(type(post.score) is int)

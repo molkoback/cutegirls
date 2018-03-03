@@ -15,8 +15,7 @@ class Yandere(Booru):
 		return params
 	
 	def _yandere_date(self, date_str):
-		# TODO localtime maybe?
-		return datetime.fromtimestamp(int(date_str))
+		return datetime.utcfromtimestamp(int(date_str))
 	
 	def _yandere_add_post(self, post_xml):
 		self._add_post(

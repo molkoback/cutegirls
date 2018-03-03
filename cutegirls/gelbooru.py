@@ -1,5 +1,5 @@
 from .booru import *
-from .util import months
+from .util import boorutime
 
 from datetime import datetime
 
@@ -21,15 +21,6 @@ class Gelbooru(Booru):
 	def _gelbooru_url(self, url):
 		return "http://" + url[url.find("gelbooru.com"):]
 	
-	def _gelbooru_date(self, date_str):
-		# TODO localtime maybe?
-		dt = date_str.split()
-		t = dt[3].split(":")
-		return datetime(
-			int(dt[5]), months[dt[1]], int(dt[2]),
-			int(t[0]), int(t[1]), int(t[2])
-		)
-	
 	def _gelbooru_add_post(self, post_xml):
 		self._add_post(
 			id=int(post_xml.attrib["id"]),
@@ -37,7 +28,7 @@ class Gelbooru(Booru):
 			sample_url=self._gelbooru_url(post_xml.attrib["sample_url"]),
 			preview_url=self._gelbooru_url(post_xml.attrib["preview_url"]),
 			tags=post_xml.attrib["tags"].split(),
-			date=self._gelbooru_date(post_xml.attrib["created_at"]),
+			date=boorutime(post_xml.attrib["created_at"]),
 			width=int(post_xml.attrib["width"]),
 			height=int(post_xml.attrib["height"]),
 			score=int(post_xml.attrib["score"]),

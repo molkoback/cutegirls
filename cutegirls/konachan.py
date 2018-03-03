@@ -1,5 +1,4 @@
 from .booru import *
-from .util import months
 
 from datetime import datetime
 
@@ -16,8 +15,7 @@ class Konachan(Booru):
 		return params
 	
 	def _konachan_date(self, date_str):
-		# TODO localtime maybe?
-		return datetime.fromtimestamp(int(date_str))
+		return datetime.utcfromtimestamp(int(date_str))
 	
 	def _konachan_add_post(self, post_xml):
 		self._add_post(

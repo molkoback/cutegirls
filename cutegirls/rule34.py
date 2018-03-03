@@ -1,5 +1,5 @@
 from .booru import *
-from .util import months
+from .util import boorutime
 
 from datetime import datetime
 
@@ -18,15 +18,6 @@ class Rule34(Booru):
 			params["tags"] = "+".join(tags)
 		return params
 	
-	def _rule34_date(self, date_str):
-		# TODO localtime maybe?
-		dt = date_str.split()
-		t = dt[3].split(":")
-		return datetime(
-			int(dt[5]), months[dt[1]], int(dt[2]),
-			int(t[0]), int(t[1]), int(t[2])
-		)
-	
 	def _rule34_add_post(self, post_xml):
 		self._add_post(
 			id=int(post_xml.attrib["id"]),
@@ -34,7 +25,7 @@ class Rule34(Booru):
 			sample_url=post_xml.attrib["sample_url"],
 			preview_url=post_xml.attrib["preview_url"],
 			tags=post_xml.attrib["tags"].split(),
-			date=self._rule34_date(post_xml.attrib["created_at"]),
+			date=boorutime(post_xml.attrib["created_at"]),
 			width=int(post_xml.attrib["width"]),
 			height=int(post_xml.attrib["height"]),
 			score=int(post_xml.attrib["score"]),

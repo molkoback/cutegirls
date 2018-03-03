@@ -1,6 +1,6 @@
 from .booru import *
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 _API = "http://danbooru.donmai.us"
 
@@ -35,14 +35,22 @@ class Danbooru(Booru):
 		return _API + url
 	
 	def _danbooru_date(self, date_str):
-		# TODO localtime maybe?
 		tmp = date_str.split("T")
-		d = tmp[0].split("-")
-		t = tmp[1].split(":")
-		return datetime(
-			int(d[0]), int(d[1]), int(d[2]),
-			int(t[0]), int(t[1]), int(t[2].split(".")[0])
+		dl = tmp[0].split("-")
+		tl = tmp[1].split(":", 2)
+		tl[2], z = tl[2].split(".")
+		
+		dt = datetime(
+			int(dl[0]), int(dl[1]), int(dl[2]),
+			int(tl[0]), int(tl[1]), int(tl[2])
 		)
+		
+		# Timezone
+		sign = z[3]
+		hours = int(z[4:6])
+		mins = int(z[7:9])
+		delta = timedelta(hours=hours, minutes=mins)
+		return dt-delta if sign=="+" else dt+delta
 	
 	def _danbooru_add_post(self, post_json):
 		self._add_post(
