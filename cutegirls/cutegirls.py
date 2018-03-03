@@ -25,4 +25,4 @@ def CuteGirls(name="gelbooru"):
 
 def boorulist():
 	""" Lists all the available booru sites. """
-	return [key for key in _boorus.keys()]
+	return list(_boorus.keys())

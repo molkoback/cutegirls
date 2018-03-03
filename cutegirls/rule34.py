@@ -3,9 +3,13 @@ from .util import boorutime
 
 from datetime import datetime
 
-_API = "https://rule34.xxx/index.php"
+_SITE = "https://rule34.xxx"
+_API = _SITE + "/index.php"
 
 class Rule34(Booru):
+	def __init__(self):
+		super().__init__("Rule34", _SITE)
+	
 	def _rule34_params(self, tags, limit, page):
 		params = {
 			"page": "dapi",
@@ -29,12 +33,12 @@ class Rule34(Booru):
 			width=int(post_xml.attrib["width"]),
 			height=int(post_xml.attrib["height"]),
 			score=int(post_xml.attrib["score"]),
-			rating=self._rating(post_xml.attrib["rating"]),
+			rating=post_xml.attrib["rating"],
 			md5=post_xml.attrib["md5"],
 			source=post_xml.attrib["source"]
 		)
 	
-	def search(self, tags=[], limit=50, page=0):
+	def _search(self, tags, limit, page):
 		params = self._rule34_params(tags, limit, page)
 		xml = self._dl.get_xml(_API, params)
 		self._new_results(
@@ -43,8 +47,5 @@ class Rule34(Booru):
 			limit=limit,
 			total=int(xml.attrib["count"])
 		)
-		
 		for post_xml in xml:
 			self._rule34_add_post(post_xml)
-		
-		return self.results

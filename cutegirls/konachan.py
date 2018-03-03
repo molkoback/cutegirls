@@ -2,9 +2,13 @@ from .booru import *
 
 from datetime import datetime
 
-_API = "http://konachan.com/post.xml"
+_SITE = "http://konachan.com"
+_API = _SITE + "/post.xml"
 
 class Konachan(Booru):
+	def __init__(self):
+		super().__init__("Konachan", _SITE)
+	
 	def _konachan_params(self, tags, limit, page):
 		params = {
 			"page": str(page),
@@ -28,12 +32,12 @@ class Konachan(Booru):
 			width=int(post_xml.attrib["width"]),
 			height=int(post_xml.attrib["height"]),
 			score=int(post_xml.attrib["score"]),
-			rating=self._rating(post_xml.attrib["rating"]),
+			rating=post_xml.attrib["rating"],
 			md5=post_xml.attrib["md5"],
 			source=post_xml.attrib["source"]
 		)
 	
-	def search(self, tags=[], limit=50, page=0):
+	def _search(self, tags, limit, page):
 		params = self._konachan_params(tags, limit, page)
 		xml = self._dl.get_xml(_API, params)
 		self._new_results(
@@ -42,8 +46,5 @@ class Konachan(Booru):
 			limit=limit,
 			total=int(xml.attrib["count"])
 		)
-		
 		for post_xml in xml:
 			self._konachan_add_post(post_xml)
-		
-		return self.results

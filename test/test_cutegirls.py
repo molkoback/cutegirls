@@ -32,7 +32,8 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.width, 1252)
 		self.assertEqual(post.height, 1827)
 		self.assertTrue(type(post.score) is int)
-		self.assertEqual(post.rating, "safe")
+		self.assertEqual(post.rating, "s")
+		self.assertEqual(post.rating_long, "safe")
 		self.assertEqual(post.md5, "2ec2f08e3a6a0e81e9085acffdb9a39e")
 		self.assertEqual(post.source, "")
 	
@@ -58,7 +59,8 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.width, 4091)
 		self.assertEqual(post.height, 5937)
 		self.assertTrue(type(post.score) is int)
-		self.assertEqual(post.rating, "safe")
+		self.assertEqual(post.rating, "s")
+		self.assertEqual(post.rating_long, "safe")
 		self.assertEqual(post.md5, "451e8121d497c6982eb51c0a102467a2")
 		self.assertEqual(post.source, "Megami #170")
 	
@@ -84,7 +86,8 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.width, 5946)
 		self.assertEqual(post.height, 4086)
 		self.assertTrue(type(post.score) is int)
-		self.assertEqual(post.rating, "questionable")
+		self.assertEqual(post.rating, "q")
+		self.assertEqual(post.rating_long, "questionable")
 		self.assertEqual(post.md5, "b135d4b665fd08131d3a8ed1973b4aa0")
 		self.assertEqual(post.source, "")
 	
@@ -110,7 +113,8 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.width, 1200)
 		self.assertEqual(post.height, 900)
 		self.assertTrue(type(post.score) is int)
-		self.assertEqual(post.rating, "safe")
+		self.assertEqual(post.rating, "s")
+		self.assertEqual(post.rating_long, "safe")
 		self.assertEqual(post.md5, "24d9eb020b1b7913aacde097fa5111e3")
 		self.assertEqual(post.source, "http://i2.pixiv.net/img26/img/sntk/43994418.png")
 	
@@ -136,7 +140,8 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.width, 900)
 		self.assertEqual(post.height, 1185)
 		self.assertTrue(type(post.score) is int)
-		self.assertEqual(post.rating, "explicit")
+		self.assertEqual(post.rating, "e")
+		self.assertEqual(post.rating_long, "explicit")
 		self.assertEqual(post.md5, "b9fa83a3e8bec47d2ccd53a06e2fce1b")
 		self.assertEqual(post.source, "https://i.pximg.net/img-original/img/2017/10/08/19/03/58/65341103_p0.jpg")
 	

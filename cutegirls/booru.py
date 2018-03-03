@@ -34,6 +34,15 @@ class Post:
 	def __repr__(self):
 		return "<Post id=%d>" % self.id
 	
+	@property
+	def rating_long(self):
+		ratings = {
+			"s": "safe",
+			"q": "questionable",
+			"e": "explicit"
+		}
+		return ratings[self.rating]
+	
 	def _parse_url(self, url):
 		tmp = url.rsplit("/", 1)[-1].rsplit(".", 1)
 		return tmp[0], tmp[1]
@@ -67,7 +76,10 @@ class SearchResults:
 
 class Booru:
 	""" Superclass for booru site implementations. """
-	def __init__(self):
+	def __init__(self, name="Booru", url=""):
+		self.name = name
+		self.url = url
+		
 		self._dl = Downloader()
 		self.results = SearchResults(
 			posts=[],
@@ -77,13 +89,8 @@ class Booru:
 			total=0
 		)
 	
-	def _rating(self, letter):
-		ratings = {
-			"s": "safe",
-			"q": "questionable",
-			"e": "explicit"
-		}
-		return ratings[letter]
+	def __repr__(self):
+		return "<%s>" % self.name
 	
 	def _new_results(self, **kwargs):
 		self.results = SearchResults(posts=[], **kwargs)
@@ -92,5 +99,6 @@ class Booru:
 		self.results.posts.append(Post(self._dl, **kwargs))
 	
 	def search(self, tags=[], limit=50, page=0):
-		""" Search method template. """
-		raise NotImplementedError()
+		""" Search for posts. """
+		self._search(tags, limit, page)
+		return self.results

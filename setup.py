@@ -12,7 +12,7 @@ setup(
 	author_email="molkoback@gmail.com",
 	url="https://github.com/molkoback/cutegirls",
 	packages=["cutegirls"],
-	version="0.3.2",
+	version="0.4.0",
 	license="WTFPL",
 	description="Grab posts from some *booru sites",
 	long_description=readme,

@@ -2,14 +2,14 @@ from .booru import *
 
 from datetime import datetime, timedelta
 
-_API = "http://danbooru.donmai.us"
+_SITE = "http://danbooru.donmai.us"
 
 class DanbooruException(Exception):
 	pass
 
 class Danbooru(Booru):
 	def __init__(self, login="", api_key=""):
-		super().__init__()
+		super().__init__("Danbooru", _SITE)
 		self.login = login
 		self.api_key = api_key
 	
@@ -32,7 +32,7 @@ class Danbooru(Booru):
 	def _danbooru_url(self, url):
 		if url[:4] == "http":
 			return url
-		return _API + url
+		return _SITE + url
 	
 	def _danbooru_date(self, date_str):
 		tmp = date_str.split("T")
@@ -63,22 +63,21 @@ class Danbooru(Booru):
 			width=post_json["image_width"],
 			height=post_json["image_height"],
 			score=post_json["score"],
-			rating=self._rating(post_json["rating"]),
+			rating=post_json["rating"],
 			md5=post_json["md5"],
 			source=post_json["source"]
 		)
 	
-	def search(self, tags=[], limit=50, page=0):
+	def _search(self, tags, limit, page):
 		params = self._danbooru_params(tags, limit, page)
-		json = self._dl.get_json(_API + "/counts/posts.json", params)
+		json = self._dl.get_json(_SITE + "/counts/posts.json", params)
 		self._new_results(
 			tags=tags,
 			page=page,
 			limit=limit,
 			total=json["counts"]["posts"]
 		)
-		
-		json = self._dl.get_json(_API + "/posts.json", params)
+		json = self._dl.get_json(_SITE + "/posts.json", params)
 		for post_json in json:
 			# TODO fix this shit
 			# seriously the fuck?
@@ -86,5 +85,3 @@ class Danbooru(Booru):
 				self._danbooru_add_post(post_json)
 			except:
 				pass
-		
-		return self.results
