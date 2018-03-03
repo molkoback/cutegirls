@@ -30,6 +30,8 @@ class Danbooru(Booru):
 		return params
 	
 	def _danbooru_url(self, url):
+		if url[:4] == "http":
+			return url
 		return _API + url
 	
 	def _danbooru_date(self, date_str):

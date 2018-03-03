@@ -1,18 +1,25 @@
+# Urls change all the fucking time so just check for HTTP errors
+
 from cutegirls import *
 
 import unittest
+import requests
 from datetime import datetime
 
 class TestCuteGirls(unittest.TestCase):
+	def check_url(self, url):
+		return requests.get(url).ok
+	
 	def test_gelbooru_post(self):
 		cg = CuteGirls("gelbooru")
 		r = cg.search(["kafuu_chino", "solo", "swimsuit", "screencap"])
 		post = r.posts[-1]
 		
+		self.assertTrue(self.check_url(post.file_url))
+		self.assertTrue(self.check_url(post.sample_url))
+		self.assertTrue(self.check_url(post.preview_url))
+		
 		self.assertEqual(post.id, 2284423)
-		self.assertEqual(post.file_url, "http://gelbooru.com/images/2e/c2/2ec2f08e3a6a0e81e9085acffdb9a39e.jpg")
-		self.assertEqual(post.sample_url, "http://gelbooru.com/samples/2e/c2/sample_2ec2f08e3a6a0e81e9085acffdb9a39e.jpg")
-		self.assertEqual(post.preview_url, "http://gelbooru.com/thumbnails/2e/c2/thumbnail_2ec2f08e3a6a0e81e9085acffdb9a39e.jpg")
 		self.assertEqual(post.file_name, "2ec2f08e3a6a0e81e9085acffdb9a39e")
 		self.assertEqual(post.file_ext, "jpg")
 		self.assertEqual(post.sample_name, "sample_2ec2f08e3a6a0e81e9085acffdb9a39e")
@@ -34,10 +41,11 @@ class TestCuteGirls(unittest.TestCase):
 		r = cg.search(["kafuu_chino", "watermelon_hair_ornament"])
 		post = r.posts[-1]
 		
+		self.assertTrue(self.check_url(post.file_url))
+		self.assertTrue(self.check_url(post.sample_url))
+		self.assertTrue(self.check_url(post.preview_url))
+		
 		self.assertEqual(post.id, 1699467)
-		self.assertEqual(post.file_url, "http://danbooru.donmai.us/data/__hoto_cocoa_kafuu_chino_tedeza_rize_and_tippy_gochuumon_wa_usagi_desu_ka_and_megami_drawn_by_okuda_yousuke__451e8121d497c6982eb51c0a102467a2.jpg")
-		self.assertEqual(post.sample_url, "http://danbooru.donmai.us/data/sample/__hoto_cocoa_kafuu_chino_tedeza_rize_and_tippy_gochuumon_wa_usagi_desu_ka_and_megami_drawn_by_okuda_yousuke__sample-451e8121d497c6982eb51c0a102467a2.jpg")
-		self.assertEqual(post.preview_url, "http://danbooru.donmai.us/data/preview/451e8121d497c6982eb51c0a102467a2.jpg")
 		self.assertEqual(post.file_name, "__hoto_cocoa_kafuu_chino_tedeza_rize_and_tippy_gochuumon_wa_usagi_desu_ka_and_megami_drawn_by_okuda_yousuke__451e8121d497c6982eb51c0a102467a2")
 		self.assertEqual(post.file_ext, "jpg")
 		self.assertEqual(post.sample_name, "__hoto_cocoa_kafuu_chino_tedeza_rize_and_tippy_gochuumon_wa_usagi_desu_ka_and_megami_drawn_by_okuda_yousuke__sample-451e8121d497c6982eb51c0a102467a2")
@@ -46,7 +54,7 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.preview_ext, "jpg")
 		self.assertTrue(type(post.tags) is list)
 		self.assertTrue(type(post.date) is datetime)
-		#self.assertEqual(str(post.date), "2014-06-03 19:05:04")
+		#self.assertEqual(str(post.date), "date")
 		self.assertEqual(post.width, 4091)
 		self.assertEqual(post.height, 5937)
 		self.assertTrue(type(post.score) is int)
@@ -59,10 +67,11 @@ class TestCuteGirls(unittest.TestCase):
 		r = cg.search(["kafuu_chino", "loli", "bikini"])
 		post = r.posts[-1]
 		
+		self.assertTrue(self.check_url(post.file_url))
+		self.assertTrue(self.check_url(post.sample_url))
+		self.assertTrue(self.check_url(post.preview_url))
+		
 		self.assertEqual(post.id, 279590)
-		self.assertEqual(post.file_url, "https://files.yande.re/image/b135d4b665fd08131d3a8ed1973b4aa0/yande.re%20279590%20bikini%20cleavage%20feet%20gochuumon_wa_usagi_desu_ka%3F%20hoto_cocoa%20kafuu_chino%20loli%20okuda_yousuke%20swimsuits%20tedeza_rize.jpg")
-		self.assertEqual(post.sample_url, "https://files.yande.re/sample/b135d4b665fd08131d3a8ed1973b4aa0/yande.re%20279590%20sample%20bikini%20cleavage%20feet%20gochuumon_wa_usagi_desu_ka%3F%20hoto_cocoa%20kafuu_chino%20loli%20okuda_yousuke%20swimsuits%20tedeza_rize.jpg")
-		self.assertEqual(post.preview_url, "https://assets.yande.re/data/preview/b1/35/b135d4b665fd08131d3a8ed1973b4aa0.jpg")
 		self.assertEqual(post.file_name, "yande.re%20279590%20bikini%20cleavage%20feet%20gochuumon_wa_usagi_desu_ka%3F%20hoto_cocoa%20kafuu_chino%20loli%20okuda_yousuke%20swimsuits%20tedeza_rize")
 		self.assertEqual(post.file_ext, "jpg")
 		self.assertEqual(post.sample_name, "yande.re%20279590%20sample%20bikini%20cleavage%20feet%20gochuumon_wa_usagi_desu_ka%3F%20hoto_cocoa%20kafuu_chino%20loli%20okuda_yousuke%20swimsuits%20tedeza_rize")
@@ -84,10 +93,11 @@ class TestCuteGirls(unittest.TestCase):
 		r = cg.search(["kafuu_chino", "sanotsuki"])
 		post = r.posts[-1]
 		
+		self.assertTrue(self.check_url(post.file_url))
+		self.assertTrue(self.check_url(post.sample_url))
+		self.assertTrue(self.check_url(post.preview_url))
+		
 		self.assertEqual(post.id, 184190)
-		self.assertEqual(post.file_url, "https://konachan.com/image/24d9eb020b1b7913aacde097fa5111e3/Konachan.com%20-%20184190%20aqua_eyes%20gochuumon_wa_usagi_desu_ka%3F%20kafuu_chino%20sanotsuki%20tippy_%28gochuumon_wa_usagi_desu_ka%3F%29%20uniform%20white_hair.png")
-		self.assertEqual(post.sample_url, "https://konachan.com/jpeg/24d9eb020b1b7913aacde097fa5111e3/Konachan.com%20-%20184190%20aqua_eyes%20gochuumon_wa_usagi_desu_ka%3F%20kafuu_chino%20sanotsuki%20tippy_%28gochuumon_wa_usagi_desu_ka%3F%29%20uniform%20white_hair.jpg")
-		self.assertEqual(post.preview_url, "https://konachan.com/data/preview/24/d9/24d9eb020b1b7913aacde097fa5111e3.jpg")
 		self.assertEqual(post.file_name, "Konachan.com%20-%20184190%20aqua_eyes%20gochuumon_wa_usagi_desu_ka%3F%20kafuu_chino%20sanotsuki%20tippy_%28gochuumon_wa_usagi_desu_ka%3F%29%20uniform%20white_hair")
 		self.assertEqual(post.file_ext, "png")
 		self.assertEqual(post.sample_name, "Konachan.com%20-%20184190%20aqua_eyes%20gochuumon_wa_usagi_desu_ka%3F%20kafuu_chino%20sanotsuki%20tippy_%28gochuumon_wa_usagi_desu_ka%3F%29%20uniform%20white_hair")
@@ -109,10 +119,11 @@ class TestCuteGirls(unittest.TestCase):
 		r = cg.search(["kafuu_chino", "sasai_saji", "star"])
 		post = r.posts[-1]
 		
+		self.assertTrue(self.check_url(post.file_url))
+		self.assertTrue(self.check_url(post.sample_url))
+		self.assertTrue(self.check_url(post.preview_url))
+		
 		self.assertEqual(post.id, 2537985)
-		#self.assertEqual(post.file_url, "https://img.rule34.xxx/images/2329/7c930821757d0958b8d36f765cfea7e5193b07e3.jpg")
-		self.assertEqual(post.sample_url, "https://img.rule34.xxx/images/2329/7c930821757d0958b8d36f765cfea7e5193b07e3.jpg")
-		self.assertEqual(post.preview_url, "https://rule34.xxx/thumbnails/2329/thumbnail_7c930821757d0958b8d36f765cfea7e5193b07e3.jpg")
 		self.assertEqual(post.file_name, "7c930821757d0958b8d36f765cfea7e5193b07e3")
 		self.assertEqual(post.file_ext, "jpg")
 		self.assertEqual(post.sample_name, "7c930821757d0958b8d36f765cfea7e5193b07e3")
