@@ -1,17 +1,4 @@
-from .gelbooru import Gelbooru
-from .danbooru import Danbooru
-from .yandere import Yandere
-from .konachan import Konachan
-from .rule34 import Rule34
-
-_boorus = {
-	"gelbooru": Gelbooru,
-	"danbooru": Danbooru,
-	"yande.re": Yandere,
-	"yandere": Yandere,
-	"konachan": Konachan,
-	"rule34": Rule34
-}
+from cutegirls.boorus import __ids__
 
 def CuteGirls(name="gelbooru"):
 	""" 
@@ -19,10 +6,10 @@ def CuteGirls(name="gelbooru"):
 	invalid.
 	"""
 	namel = name.lower()
-	if not namel in _boorus:
+	if not namel in __ids__:
 		raise KeyError("Booru not found: '%s'" % name)
-	return _boorus[namel]()
+	return __ids__[namel]()
 
 def boorulist():
 	""" Lists all the available booru sites. """
-	return list(_boorus.keys())
+	return list(__ids__.keys())

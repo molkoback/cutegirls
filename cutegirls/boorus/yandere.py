@@ -1,4 +1,4 @@
-from .booru import *
+from cutegirls.booru import *
 
 from datetime import datetime
 

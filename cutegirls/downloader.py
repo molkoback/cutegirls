@@ -1,6 +1,6 @@
 import requests
-import xml.etree.ElementTree
 import hashlib
+from xml.etree import ElementTree
 
 _TIMEOUT = 10
 
@@ -42,7 +42,7 @@ class Downloader:
 	
 	def get_xml(self, url, params={}):
 		r = self.get(url, params)
-		return xml.etree.ElementTree.fromstring(r.text)
+		return ElementTree.fromstring(r.text)
 	
 	def post(self, url, params, data):
 		return self._request(

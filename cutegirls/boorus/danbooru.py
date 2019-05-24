@@ -1,4 +1,4 @@
-from .booru import *
+from cutegirls.booru import *
 
 from datetime import datetime, timedelta
 
@@ -35,22 +35,9 @@ class Danbooru(Booru):
 		return _SITE + url
 	
 	def _danbooru_date(self, date_str):
-		tmp = date_str.split("T")
-		dl = tmp[0].split("-")
-		tl = tmp[1].split(":", 2)
-		tl[2], z = tl[2].split(".")
-		
-		dt = datetime(
-			int(dl[0]), int(dl[1]), int(dl[2]),
-			int(tl[0]), int(tl[1]), int(tl[2])
-		)
-		
-		# Timezone
-		sign = z[3]
-		hours = int(z[4:6])
-		mins = int(z[7:9])
-		delta = timedelta(hours=hours, minutes=mins)
-		return dt-delta if sign=="+" else dt+delta
+		"2019-05-24T13:52:59.801-04:00"
+		date_str = date_str[:19] + date_str[23:]
+		return datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S%z")
 	
 	def _danbooru_add_post(self, post_json):
 		self._add_post(

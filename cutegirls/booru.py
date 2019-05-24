@@ -1,4 +1,4 @@
-from .downloader import Downloader
+from cutegirls.downloader import Downloader
 
 _DEFAULT_SAVE_PATH = "."
 

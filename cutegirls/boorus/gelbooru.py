@@ -1,5 +1,5 @@
-from .booru import *
-from .util import boorutime
+from cutegirls.booru import *
+from cutegirls.util import boorutime
 
 from datetime import datetime
 
@@ -22,15 +22,12 @@ class Gelbooru(Booru):
 			params["tags"] = "+".join(tags)
 		return params
 	
-	def _gelbooru_url(self, url):
-		return "http://" + url[url.find("gelbooru.com"):]
-	
 	def _gelbooru_add_post(self, post_xml):
 		self._add_post(
 			id=int(post_xml.attrib["id"]),
-			file_url=self._gelbooru_url(post_xml.attrib["file_url"]),
-			sample_url=self._gelbooru_url(post_xml.attrib["sample_url"]),
-			preview_url=self._gelbooru_url(post_xml.attrib["preview_url"]),
+			file_url=post_xml.attrib["file_url"],
+			sample_url=post_xml.attrib["sample_url"],
+			preview_url=post_xml.attrib["preview_url"],
 			tags=post_xml.attrib["tags"].split(),
 			date=boorutime(post_xml.attrib["created_at"]),
 			width=int(post_xml.attrib["width"]),

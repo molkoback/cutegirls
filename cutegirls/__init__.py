@@ -1,6 +1,3 @@
-from .cutegirls import *
-from .gelbooru import Gelbooru
-from .danbooru import Danbooru
-from .yandere import Yandere
-from .konachan import Konachan
-from. rule34 import Rule34
+from cutegirls.cutegirls import CuteGirls, boorulist
+
+__version__ = "0.5.0"
