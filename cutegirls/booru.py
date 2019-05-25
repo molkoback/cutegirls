@@ -26,7 +26,7 @@ class Post:
 		self.source = kwargs.get("source")
 	
 	def __repr__(self):
-		return "<Post id=%d>" % self.id
+		return "<Post id={}>".format(self.id)
 	
 	@property
 	def rating_long(self):
@@ -70,7 +70,10 @@ class SearchResults:
 		self.posts = kwargs.get("posts", [])
 	
 	def __repr__(self):
-		return "<SearchResult tags=%s>" % self.tags
+		return "<SearchResult tags={}>".format(self.tags)
+	
+	def __next__(self):
+		pass
 
 class Booru:
 	""" Superclass for booru site implementations. """
@@ -88,7 +91,7 @@ class Booru:
 		)
 	
 	def __repr__(self):
-		return "<%s>" % self.name
+		return "<%s>".format(self.name)
 	
 	def _new_results(self, **kwargs):
 		self.results = SearchResults(posts=[], **kwargs)
@@ -103,3 +106,12 @@ class Booru:
 		""" Search for posts. """
 		self._search(tags, limit, page)
 		return self.results
+	
+	def posts(self, tags=[], page=0):
+		""" Search for posts using a generator. """
+		while True:
+			res = self.search(tags=tags, page=page)
+			if not res.posts:
+				break
+			for post in res.posts:
+				yield post
