@@ -7,7 +7,7 @@ def CuteGirls(name="gelbooru"):
 	"""
 	namel = name.lower()
 	if not namel in __ids__:
-		raise KeyError("Booru not found: '%s'" % name)
+		raise KeyError("Booru not found: '{}'".format(name))
 	return __ids__[namel]()
 
 def boorulist():

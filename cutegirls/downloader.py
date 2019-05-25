@@ -2,33 +2,28 @@ import requests
 import hashlib
 from xml.etree import ElementTree
 
-_TIMEOUT = 10
-
 class DownloaderException(Exception):
 	pass
 
 class Downloader:
 	""" Downloads shit. """
-	def __init__(self):
+	def __init__(self, timeout=10):
 		self._session = requests.Session()
+		self.timeout = timeout
 	
-	def _create_url(self, url, params):
+	def _create_url(self, url, params={}):
 		if params:
-			url += "?" + "&".join(
-				[k + "=" + v for k, v in params.items()]
-			)
+			url += "?" + "&".join([k+"="+v for k, v in params.items()])
 		return url
 	
 	def _request(self, **kwargs):
 		r = self._session.request(
 			**kwargs,
-			timeout=_TIMEOUT,
+			timeout=self.timeout,
 			headers={"Connection": "close"}
 		)
 		if not r.ok:
-			raise DownloaderException(
-				"HTTP status code %d: %s" % (r.status_code, r.reason)
-			 )
+			raise DownloaderException("HTTP status code {}: {}".format(r.status_code, r.reason))
 		return r
 	
 	def get(self, url, params={}):
@@ -44,10 +39,10 @@ class Downloader:
 		r = self.get(url, params)
 		return ElementTree.fromstring(r.text)
 	
-	def post(self, url, params, data):
+	def post(self, url, params={}, data={}):
 		return self._request(
 			method="post",
-			url=self._create_url(url, params),
+			url=self._create_url(url, params=params),
 			data=data
 		)
 	
@@ -61,14 +56,8 @@ class Downloader:
 	def save_content(self, url, path, md5=""):
 		""" Downloads and saves content from the given url. """
 		with open(path, "wb") as fp:
-			r = self._request(
-				method="get",
-				url=url,
-				stream=True
-			)
+			r = self._request(method="get", url=url, stream=True)
 			for chunk in r.iter_content(chunk_size=128):
 				fp.write(chunk)
-		
-		if md5:
-			if not self._check_md5(path, md5):
-				raise DownloaderException("MD5 check failed")
+		if md5 and not self._check_md5(path, md5):
+			raise DownloaderException("MD5 check failed")

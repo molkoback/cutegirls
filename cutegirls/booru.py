@@ -1,6 +1,6 @@
 from cutegirls.downloader import Downloader
 
-_DEFAULT_SAVE_PATH = "."
+import os
 
 class Post:
 	""" Booru post. """
@@ -12,15 +12,9 @@ class Post:
 		self.sample_url = kwargs.get("sample_url")
 		self.preview_url = kwargs.get("preview_url")
 		
-		self.file_name, self.file_ext = self._parse_url(
-			self.file_url
-		)
-		self.sample_name, self.sample_ext = self._parse_url(
-			self.sample_url
-		)
-		self.preview_name, self.preview_ext = self._parse_url(
-			self.preview_url
-		)
+		_, self.file_name, self.file_ext = self._split_url(self.file_url)
+		_, self.sample_name, self.sample_ext = self._split_url(self.sample_url)
+		_, self.preview_name, self.preview_ext = self._split_url(self.preview_url)
 		
 		self.tags = kwargs.get("tags")
 		self.date = kwargs.get("date")
@@ -43,33 +37,37 @@ class Post:
 		}
 		return ratings[self.rating]
 	
-	def _parse_url(self, url):
-		tmp = url.rsplit("/", 1)[-1].rsplit(".", 1)
-		return tmp[0], tmp[1]
+	def _split_url(self, url):
+		base, file = url.rsplit("/", 1)
+		name, ext = file.rsplit(".", 1)
+		return base, name, ext
 	
-	def save_file(self, path=_DEFAULT_SAVE_PATH):
+	def save_file(self, dir=".", name=None):
 		""" Downloads and saves the file. """
-		path += ("/" + self.file_name + "." + self.file_ext)
-		self._dl.save_content(self.file_url, path, md5=self.md5)
+		if name is None:
+			name = self.file_name + "." + self.file_ext
+		self._dl.save_content(self.file_url, os.path.join(dir, name), md5=self.md5)
 	
-	def save_sample(self, path=_DEFAULT_SAVE_PATH):
+	def save_sample(self, dir=".", name=None):
 		""" Downloads and saves the file sample. """
-		path += ("/" + self.sample_name + "." + self.sample_ext)
-		self._dl.save_content(self.sample_url, path)
+		if name is None:
+			name = self.sample_name + "." + self.sample_ext
+		self._dl.save_content(self.sample_url, os.path.join(dir, name))
 	
-	def save_preview(self, path=_DEFAULT_SAVE_PATH):
+	def save_preview(self, dir=".", name=None):
 		""" Downloads and saves the file preview. """
-		path += ("/" + self.preview_name + "." + self.preview_ext)
-		self._dl.save_content(self.preview_url, path)
+		if name is None:
+			name = self.preview_name + "." + self.preview_ext
+		self._dl.save_content(self.preview_url, os.path.join(dir, name))
 
 class SearchResults:
 	""" Booru search results. """
 	def __init__(self, **kwargs):
-		self.tags = kwargs.get("tags")
-		self.page = kwargs.get("page")
-		self.limit = kwargs.get("limit")
-		self.total = kwargs.get("total")
-		self.posts = kwargs.get("posts")
+		self.tags = kwargs.get("tags", [])
+		self.page = kwargs.get("page", 0)
+		self.limit = kwargs.get("limit", 0)
+		self.total = kwargs.get("total", 0)
+		self.posts = kwargs.get("posts", [])
 	
 	def __repr__(self):
 		return "<SearchResult tags=%s>" % self.tags
@@ -97,6 +95,9 @@ class Booru:
 	
 	def _add_post(self, **kwargs):
 		self.results.posts.append(Post(self._dl, **kwargs))
+	
+	def _search(tags, limit, page):
+		raise NotImplemented()
 	
 	def search(self, tags=[], limit=50, page=0):
 		""" Search for posts. """

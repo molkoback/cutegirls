@@ -1,14 +1,10 @@
 from cutegirls.booru import *
-from cutegirls.util import boorutime
 
 from datetime import datetime
 
-_SITE = "https://gelbooru.com"
-_API = _SITE + "/index.php"
-
 class Gelbooru(Booru):
 	def __init__(self):
-		super().__init__("Gelbooru", _SITE)
+		super().__init__(name="Gelbooru", url="https://gelbooru.com/index.php")
 	
 	def _gelbooru_params(self, tags, limit, page):
 		params = {
@@ -22,6 +18,9 @@ class Gelbooru(Booru):
 			params["tags"] = "+".join(tags)
 		return params
 	
+	def _gelbooru_datetime(self, date_str):
+		return datetime.strptime(date_str[4:], "%b %d %H:%M:%S %z %Y")
+	
 	def _gelbooru_add_post(self, post_xml):
 		self._add_post(
 			id=int(post_xml.attrib["id"]),
@@ -29,7 +28,7 @@ class Gelbooru(Booru):
 			sample_url=post_xml.attrib["sample_url"],
 			preview_url=post_xml.attrib["preview_url"],
 			tags=post_xml.attrib["tags"].split(),
-			date=boorutime(post_xml.attrib["created_at"]),
+			date=self._gelbooru_datetime(post_xml.attrib["created_at"]),
 			width=int(post_xml.attrib["width"]),
 			height=int(post_xml.attrib["height"]),
 			score=int(post_xml.attrib["score"]),
@@ -40,7 +39,7 @@ class Gelbooru(Booru):
 	
 	def _search(self, tags, limit, page):
 		params = self._gelbooru_params(tags, limit, page)
-		xml = self._dl.get_xml(_API, params)
+		xml = self._dl.get_xml(self.url, params)
 		self._new_results(
 			tags=tags,
 			page=page,
