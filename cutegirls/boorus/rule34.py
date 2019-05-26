@@ -1,7 +1,4 @@
-from cutegirls.booru import *
 from cutegirls.boorus import Gelbooru
-
-from datetime import datetime
 
 class Rule34(Gelbooru):
 	def __init__(self):

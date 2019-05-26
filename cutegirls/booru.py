@@ -115,3 +115,4 @@ class Booru:
 				break
 			for post in res.posts:
 				yield post
+			page += 1
