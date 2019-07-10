@@ -3,8 +3,8 @@ from cutegirls.booru import *
 from datetime import datetime
 
 class Konachan(Booru):
-	def __init__(self):
-		super().__init__(name="Konachan", url="http://konachan.com/post.xml")
+	def __init__(self, **kwargs):
+		super().__init__(name="Konachan", url="http://konachan.com/post.xml", **kwargs)
 	
 	def _konachan_params(self, tags, limit, page):
 		params = {

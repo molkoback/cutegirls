@@ -11,7 +11,7 @@ class TestCuteGirls(unittest.TestCase):
 		return requests.get(url).ok
 	
 	def test_gelbooru_post(self):
-		cg = CuteGirls("gelbooru")
+		cg = CuteGirls(name="gelbooru")
 		r = cg.search(["kafuu_chino", "solo", "swimsuit", "screencap"])
 		post = r.posts[-1]
 		
@@ -35,7 +35,7 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.source, "")
 	
 	def test_danbooru_post(self):
-		cg = CuteGirls("danbooru")
+		cg = CuteGirls(name="danbooru")
 		r = cg.search(["kafuu_chino", "watermelon_hair_ornament"])
 		post = r.posts[-1]
 		
@@ -59,7 +59,7 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.source, "Megami #170")
 	
 	def test_yandere_post(self):
-		cg = CuteGirls("yande.re")
+		cg = CuteGirls(name="yande.re")
 		r = cg.search(["kafuu_chino", "bikini", "okuda_yousuke"])
 		post = r.posts[-1]
 		
@@ -83,7 +83,7 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.source, "")
 	
 	def test_konachan_post(self):
-		cg = CuteGirls("konachan")
+		cg = CuteGirls(name="konachan")
 		r = cg.search(["kafuu_chino", "sanotsuki"])
 		post = r.posts[-1]
 		
@@ -107,7 +107,7 @@ class TestCuteGirls(unittest.TestCase):
 		self.assertEqual(post.source, "http://i2.pixiv.net/img26/img/sntk/43994418.png")
 	
 	def test_rule34_post(self):
-		cg = CuteGirls("rule34")
+		cg = CuteGirls(name="rule34")
 		r = cg.search(["kafuu_chino", "sasai_saji", "star"])
 		post = r.posts[-1]
 		

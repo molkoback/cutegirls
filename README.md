@@ -13,7 +13,7 @@ Grab posts from some *booru sites. Written in Python 3.x.
 ```python
 from cutegirls import CuteGirls
 
-cg = CuteGirls("gelbooru")
+cg = CuteGirls(name="gelbooru")
 
 tags = ["kafuu_chino", "rating:safe"]
 r = cg.search(tags=tags, limit=5, page=0)

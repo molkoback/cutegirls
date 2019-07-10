@@ -3,8 +3,8 @@ from cutegirls.booru import *
 from datetime import datetime
 
 class Yandere(Booru):
-	def __init__(self):
-		super().__init__(name="Yande.re", url="https://yande.re/post.xml")
+	def __init__(self, **kwargs):
+		super().__init__(name="Yande.re", url="https://yande.re/post.xml", **kwargs)
 	
 	def _yandere_params(self, tags, limit, page):
 		params = {

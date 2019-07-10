@@ -6,8 +6,8 @@ class DanbooruException(Exception):
 	pass
 
 class Danbooru(Booru):
-	def __init__(self, login="", api_key=""):
-		super().__init__(name="Danbooru", url="http://danbooru.donmai.us")
+	def __init__(self, login="", api_key="", **kwargs):
+		super().__init__(name="Danbooru", url="http://danbooru.donmai.us", **kwargs)
 		self.login = login
 		self.api_key = api_key
 	

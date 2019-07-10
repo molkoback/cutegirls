@@ -71,13 +71,10 @@ class SearchResults:
 	
 	def __repr__(self):
 		return "<SearchResult tags={}>".format(self.tags)
-	
-	def __next__(self):
-		pass
 
 class Booru:
 	""" Superclass for booru site implementations. """
-	def __init__(self, name="Booru", url=""):
+	def __init__(self, name="Booru", url="", **kwargs):
 		self.name = name
 		self.url = url
 		

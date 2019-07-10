@@ -3,8 +3,8 @@ from cutegirls.booru import *
 from datetime import datetime
 
 class Gelbooru(Booru):
-	def __init__(self):
-		super().__init__(name="Gelbooru", url="https://gelbooru.com/index.php")
+	def __init__(self, **kwargs):
+		super().__init__(name="Gelbooru", url="https://gelbooru.com/index.php", **kwargs)
 	
 	def _gelbooru_params(self, tags, limit, page):
 		params = {
